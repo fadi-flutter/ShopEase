@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:shopping_app/utilities/app_colors.dart';
-import 'package:shopping_app/utilities/app_textstyle.dart';
-import 'package:shopping_app/views/Auth/screens/signup_screen.dart';
+import 'package:shopease/utilities/app_colors.dart';
+import 'package:shopease/utilities/app_textstyle.dart';
+import 'package:shopease/views/Auth/screens/signup_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

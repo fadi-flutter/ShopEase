@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopping_app/utilities/app_colors.dart';
+import 'package:shopease/utilities/app_colors.dart';
 
 class AppTextStyle {
   // Regular Black Styles

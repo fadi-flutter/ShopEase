@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:shopping_app/utilities/app_colors.dart';
-import 'views/Auth/screens/splash_screen.dart';
+import 'package:shopease/utilities/app_colors.dart';
+import 'package:shopease/views/Dashboard/dashboard.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +21,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: AppColors.primarySwatch,
         ),
-        home: const SplashScreen());
+        home: const DashBoard());
   }
 }

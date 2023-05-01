@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopease/utilities/app_colors.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
-import 'package:shopease/views/Auth/screens/login_screen.dart';
+import 'package:shopease/views/Auth/screens/forget_password_screen.dart';
+import 'package:shopease/views/Auth/screens/signup_screen.dart';
 import 'package:shopease/widgets/auth_textfield.dart';
 import 'package:shopease/widgets/long_button.dart';
 import 'package:shopease/widgets/social_button.dart';
 
-class SignupScreen extends StatelessWidget {
-  const SignupScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,12 @@ class SignupScreen extends StatelessWidget {
         appBar: AppBar(
           toolbarHeight: 70,
           backgroundColor: AppColors.bgColor,
+          leading: BackButton(
+            onPressed: () {
+              Get.to(() => const SignupScreen());
+            },
+            color: AppColors.black,
+          ),
           elevation: 0,
         ),
         body: SafeArea(
@@ -32,15 +39,12 @@ class SignupScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Sign Up',
+                  'Login',
                   style: AppTextStyle.boldBlack30.copyWith(fontSize: 36),
                 ),
                 SingleChildScrollView(
                   child: Column(
                     children: [
-                      const AuthTextField(
-                        text: 'Name',
-                      ),
                       const AuthTextField(
                         text: 'Email',
                       ),
@@ -49,7 +53,7 @@ class SignupScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Get.to(() => const LoginScreen());
+                          Get.to(() => const ForgetPasswordScreen());
                         },
                         child: Container(
                           alignment: Alignment.centerRight,
@@ -57,7 +61,7 @@ class SignupScreen extends StatelessWidget {
                             TextSpan(
                               style: AppTextStyle.mediumBlack14,
                               children: const [
-                                TextSpan(text: 'Already have an acoount ?'),
+                                TextSpan(text: 'Forget your password ?'),
                                 TextSpan(
                                   text: '\u{2192}',
                                   style: TextStyle(
@@ -70,7 +74,7 @@ class SignupScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 15),
                       LongButton(
-                        text: 'SIGN UP',
+                        text: 'LOGIN',
                         onPressed: () {},
                       ),
                     ],
@@ -81,7 +85,7 @@ class SignupScreen extends StatelessWidget {
                     Container(
                       alignment: Alignment.center,
                       child: Text(
-                        'Or sign up with sociel account',
+                        'Or Login with sociel account',
                         style: AppTextStyle.regularBlack12,
                       ),
                     ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shopease/utilities/app_colors.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
 import 'package:shopease/views/Dashboard/home/screens/home.dart';
+import 'package:shopease/views/Dashboard/shop/screens/catalog_screen.dart';
 import 'package:shopease/views/Dashboard/shop/screens/categories_screen.dart';
 
 class DashBoard extends StatefulWidget {
@@ -15,7 +16,7 @@ class _DashBoardState extends State<DashBoard> {
   int index = 0;
   List pages = [
     const Home(),
-    CategoriesScreen(),
+    const CatalogScreen(),
     const Home(),
     const Home(),
     const Home(),

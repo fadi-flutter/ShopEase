@@ -8,14 +8,18 @@ class ProductCard extends StatelessWidget {
     super.key,
     required this.sale,
     this.newItem = false,
+    this.stackRemove = false,
   });
   final bool sale;
   final bool newItem;
+  final bool? stackRemove;
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 5),
-      color: AppColors.white,
+      decoration: const BoxDecoration(
+        color: AppColors.white,
+      ),
       width: 155,
       child: Stack(
         alignment: Alignment.centerRight,
@@ -25,26 +29,32 @@ class ProductCard extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  SizedBox(
-                    height: 200,
-                    width: double.infinity,
-                    child: Image.asset(
-                      'assets/images/banner.jpeg',
-                      fit: BoxFit.cover,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: SizedBox(
+                      height: 200,
+                      width: double.infinity,
+                      child: Image.asset(
+                        'assets/images/banner.jpeg',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-                    margin: const EdgeInsets.only(top: 9, left: 9),
-                    decoration: BoxDecoration(
-                        color: newItem ? AppColors.black : AppColors.primary,
-                        borderRadius: BorderRadius.circular(12)),
-                    child: Text(
-                      newItem ? ' NEW ' : '- 20%',
-                      style: AppTextStyle.regularWhite12,
-                    ),
-                  )
+                  stackRemove!
+                      ? Container()
+                      : Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 7, vertical: 4),
+                          margin: const EdgeInsets.only(top: 9, left: 9),
+                          decoration: BoxDecoration(
+                              color:
+                                  newItem ? AppColors.black : AppColors.primary,
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Text(
+                            newItem ? ' NEW ' : '- 20%',
+                            style: AppTextStyle.regularWhite12,
+                          ),
+                        )
                 ],
               ),
               Padding(

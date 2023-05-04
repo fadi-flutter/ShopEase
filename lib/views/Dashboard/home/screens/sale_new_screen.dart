@@ -142,7 +142,7 @@ class SaleNewScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return const ProductCard(
-                    sale: true,
+                    sale: false,
                     newItem: true,
                   );
                 },

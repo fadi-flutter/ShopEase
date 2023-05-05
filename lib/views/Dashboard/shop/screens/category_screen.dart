@@ -1,32 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:shopease/utilities/app_colors.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
-import 'package:shopease/views/Dashboard/shop/screens/categories_screen.dart';
 import 'package:shopease/widgets/price_filter.dart';
 import 'package:shopease/widgets/product_card.dart';
 
-class CatalogScreen extends StatelessWidget {
-  const CatalogScreen({super.key});
+class CategoryScreen extends StatelessWidget {
+  const CategoryScreen({super.key});
 
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.bgColor,
       appBar: AppBar(
+        leading: const BackButton(color: AppColors.black),
         centerTitle: true,
         backgroundColor: AppColors.white,
-        elevation: 0,
-        actions: [
-          IconButton(
-            onPressed: () {
-              Get.to(() => CategoriesScreen());
-            },
-            icon: const Icon(Icons.search, size: 26, color: AppColors.black),
-          )
-        ],
+        elevation: 1,
         title: Text(
-          'Search By Category',
+          'Mens Jeans',
           style: AppTextStyle.mediumBlack20,
         ),
       ),

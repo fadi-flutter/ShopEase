@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shopease/utilities/app_colors.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
+import 'package:shopease/views/Dashboard/cart/screens/cart_screen.dart';
+import 'package:shopease/views/Dashboard/favourtes/screens/favourte_screen.dart';
 import 'package:shopease/views/Dashboard/home/screens/home.dart';
+import 'package:shopease/views/Dashboard/profile/screens/profile_screen.dart';
 import 'package:shopease/views/Dashboard/shop/screens/catalog_screen.dart';
-import 'package:shopease/views/Dashboard/shop/screens/categories_screen.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
@@ -17,9 +19,9 @@ class _DashBoardState extends State<DashBoard> {
   List pages = [
     const Home(),
     const CatalogScreen(),
-    const Home(),
-    const Home(),
-    const Home(),
+    const CartScreen(),
+    const FavourteScreen(),
+    const ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class _DashBoardState extends State<DashBoard> {
           children: [
             MenuItem(
               text: '   Home  ',
-              icon: Icons.home,
+              icon: index == 0 ? Icons.home : Icons.home_outlined,
               isActive: index == 0 ? true : false,
               onTap: () {
                 setState(() {
@@ -47,7 +49,9 @@ class _DashBoardState extends State<DashBoard> {
             ),
             MenuItem(
               text: '   Shop  ',
-              icon: Icons.shopping_cart_outlined,
+              icon: index == 1
+                  ? Icons.shopping_cart
+                  : Icons.shopping_cart_outlined,
               isActive: index == 1 ? true : false,
               onTap: () {
                 setState(() {
@@ -57,7 +61,8 @@ class _DashBoardState extends State<DashBoard> {
             ),
             MenuItem(
               text: '   Bag   ',
-              icon: Icons.shopping_bag_outlined,
+              icon:
+                  index == 2 ? Icons.shopping_bag : Icons.shopping_bag_outlined,
               isActive: index == 2 ? true : false,
               onTap: () {
                 setState(() {
@@ -67,7 +72,7 @@ class _DashBoardState extends State<DashBoard> {
             ),
             MenuItem(
               text: 'Favourtes',
-              icon: Icons.favorite_outline,
+              icon: index == 3 ? Icons.favorite : Icons.favorite_outline,
               isActive: index == 3 ? true : false,
               onTap: () {
                 setState(() {
@@ -77,7 +82,9 @@ class _DashBoardState extends State<DashBoard> {
             ),
             MenuItem(
               text: '  Profile  ',
-              icon: Icons.account_circle_outlined,
+              icon: index == 4
+                  ? Icons.account_circle
+                  : Icons.account_circle_outlined,
               isActive: index == 4 ? true : false,
               onTap: () {
                 setState(() {

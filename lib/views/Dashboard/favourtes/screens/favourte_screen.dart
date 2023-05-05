@@ -1,32 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:shopease/utilities/app_colors.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
-import 'package:shopease/views/Dashboard/shop/screens/categories_screen.dart';
 import 'package:shopease/widgets/price_filter.dart';
 import 'package:shopease/widgets/product_card.dart';
 
-class CatalogScreen extends StatelessWidget {
-  const CatalogScreen({super.key});
+class FavourteScreen extends StatelessWidget {
+  const FavourteScreen({super.key});
 
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bgColor,
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: AppColors.white,
         elevation: 0,
-        actions: [
-          IconButton(
-            onPressed: () {
-              Get.to(() => CategoriesScreen());
-            },
-            icon: const Icon(Icons.search, size: 26, color: AppColors.black),
-          )
-        ],
         title: Text(
-          'Search By Category',
+          'Favourites',
           style: AppTextStyle.mediumBlack20,
         ),
       ),
@@ -97,6 +87,7 @@ class CatalogScreen extends StatelessWidget {
                 return const ProductCard(
                   sale: false,
                   stackRemove: true,
+                  favourate: true,
                 );
               }),
             ),

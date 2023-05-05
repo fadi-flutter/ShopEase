@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shopease/utilities/app_colors.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
+import 'package:shopease/views/Dashboard/shop/screens/category_screen.dart';
 import 'package:shopease/widgets/auth_textfield.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -49,16 +51,21 @@ class CategoriesScreen extends StatelessWidget {
                   itemCount: category.length,
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: ((context, index) {
-                    return Card(
-                      elevation: 1,
-                      shadowColor: AppColors.lightGrey,
-                      margin: const EdgeInsets.symmetric(vertical: 5),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 18),
-                        child: Text(
-                          category[index],
-                          style: AppTextStyle.regularBlack16,
+                    return GestureDetector(
+                      onTap: () {
+                        Get.to(() => const CategoryScreen());
+                      },
+                      child: Card(
+                        elevation: 1,
+                        shadowColor: AppColors.lightGrey,
+                        margin: const EdgeInsets.symmetric(vertical: 5),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 18),
+                          child: Text(
+                            category[index],
+                            style: AppTextStyle.regularBlack16,
+                          ),
                         ),
                       ),
                     );

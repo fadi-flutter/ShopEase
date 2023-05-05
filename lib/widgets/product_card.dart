@@ -9,14 +9,16 @@ class ProductCard extends StatelessWidget {
     required this.sale,
     this.newItem = false,
     this.stackRemove = false,
+    this.favourate = false,
   });
   final bool sale;
   final bool newItem;
   final bool? stackRemove;
+  final bool? favourate;
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 4),
       decoration: const BoxDecoration(
         color: AppColors.white,
       ),
@@ -125,9 +127,9 @@ class ProductCard extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(7),
                 child: Icon(
-                  Icons.favorite_outline,
+                  favourate! ? Icons.favorite : Icons.favorite_outline,
                   size: 19,
-                  color: AppColors.grey,
+                  color: favourate! ? AppColors.primary : AppColors.grey,
                 ),
               ),
             ),

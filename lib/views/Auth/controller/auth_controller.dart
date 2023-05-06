@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shopease/utilities/app_const.dart';
 import 'package:shopease/views/Dashboard/dashboard.dart';
 
 class AuthController extends GetxController {
   RxBool hidePassword = true.obs;
-  final String userID = auth.currentUser!.uid;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
 
   //email signup method
   signup(String email, String password, String name) async {
@@ -24,7 +25,8 @@ class AuthController extends GetxController {
         email: email,
         password: password,
       );
-      await firestore.collection('users').add({
+      final String userID = auth.currentUser!.uid;
+      await firestore.collection('users').doc(userID).set({
         'time_stamp': DateTime.now(),
         'name': name,
         'email': email,
@@ -58,9 +60,32 @@ class AuthController extends GetxController {
       );
     }
   }
+
   //google login method
-  googlelogin(){
-    
+  googlelogin() async {
+    GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+    if (googleSignInAccount == null) return;
+    try {
+      EasyLoading.show();
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+      final googleAuthProvider = GoogleAuthProvider.credential(
+          idToken: googleSignInAuthentication.idToken,
+          accessToken: googleSignInAuthentication.accessToken);
+      UserCredential credential =
+          await auth.signInWithCredential(googleAuthProvider);
+      await firestore.collection('users').doc(credential.user!.uid).set({
+        'time_stamp': DateTime.now(),
+        'name': credential.user!.displayName,
+        'email': credential.user!.email,
+        'id': credential.user!.uid
+      });
+      EasyLoading.dismiss();
+      Get.offAll(() => const DashBoard());
+    } on FirebaseAuthException catch (e) {
+      EasyLoading.dismiss();
+      rawSackbar(e.message.toString());
+    }
   }
 
   //forgot password method

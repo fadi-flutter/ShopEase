@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopease/utilities/app_colors.dart';
-import 'package:shopease/utilities/app_const.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
 import 'package:shopease/views/Auth/controller/auth_controller.dart';
 import 'package:shopease/widgets/auth_textfield.dart';

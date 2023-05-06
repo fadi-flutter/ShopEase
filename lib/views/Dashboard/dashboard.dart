@@ -18,7 +18,7 @@ class _DashBoardState extends State<DashBoard> {
   int index = 0;
   List pages = [
     const Home(),
-    const CatalogScreen(),
+     CatalogScreen(),
     const CartScreen(),
     const FavourteScreen(),
     const ProfileScreen(),

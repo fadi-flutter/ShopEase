@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopease/utilities/app_colors.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
+import 'package:shopease/views/Auth/models/products_model.dart';
 import 'package:shopease/views/Dashboard/home/screens/all_products.dart';
 import 'package:shopease/widgets/product_card.dart';
 
 class SaleNewScreen extends StatelessWidget {
-  const SaleNewScreen({super.key});
-
+  const SaleNewScreen({super.key, required this.productsList});
+  final List<Products> productsList;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height * 1;
@@ -46,7 +47,7 @@ class SaleNewScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        'Street clothes',
+                        'Sale',
                         style: AppTextStyle.boldWhite30.copyWith(
                             fontSize: 38, fontWeight: FontWeight.w800),
                       ),
@@ -77,9 +78,10 @@ class SaleNewScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                       onTap: () {
-                        Get.to(() => const AllProducts(
+                        Get.to(() => AllProducts(
                               sale: true,
                               newItem: false,
+                              productsList: productsList,
                             ));
                       },
                       child:
@@ -91,12 +93,15 @@ class SaleNewScreen extends StatelessWidget {
               height: 300,
               width: double.infinity,
               child: ListView.builder(
+                padding: const EdgeInsets.only(left: 3),
                 physics: const BouncingScrollPhysics(),
-                itemCount: 3,
+                itemCount: 5,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return const ProductCard(
+                  List data = productsList.reversed.toList();
+                  return ProductCard(
                     sale: true,
+                    product: data[index],
                   );
                 },
               ),
@@ -123,9 +128,10 @@ class SaleNewScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                       onTap: () {
-                        Get.to(() => const AllProducts(
+                        Get.to(() => AllProducts(
                               sale: false,
                               newItem: true,
+                              productsList: productsList,
                             ));
                       },
                       child:
@@ -137,13 +143,15 @@ class SaleNewScreen extends StatelessWidget {
               height: 300,
               width: double.infinity,
               child: ListView.builder(
+                padding: const EdgeInsets.only(left: 3),
                 physics: const BouncingScrollPhysics(),
-                itemCount: 3,
+                itemCount: 5,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return const ProductCard(
+                  return ProductCard(
                     sale: false,
                     newItem: true,
+                    product: productsList[index],
                   );
                 },
               ),

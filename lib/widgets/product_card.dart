@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shopease/utilities/app_colors.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
+import 'package:shopease/views/Auth/models/products_model.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -10,16 +11,24 @@ class ProductCard extends StatelessWidget {
     this.newItem = false,
     this.stackRemove = false,
     this.favourate = false,
+    this.showHeart = false,
+    this.product,
   });
   final bool sale;
   final bool newItem;
   final bool? stackRemove;
   final bool? favourate;
+  final bool? showHeart;
+  final Products? product;
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 4),
       decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(8),
+          topRight: Radius.circular(8),
+        ),
         color: AppColors.white,
       ),
       width: 155,
@@ -31,14 +40,14 @@ class ProductCard extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: SizedBox(
-                      height: 200,
-                      width: double.infinity,
-                      child: Image.asset(
-                        'assets/images/banner.jpeg',
+                  Container(
+                    height: 200,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      image: DecorationImage(
                         fit: BoxFit.cover,
+                        image: NetworkImage(product!.thumbnail!),
                       ),
                     ),
                   ),
@@ -53,7 +62,9 @@ class ProductCard extends StatelessWidget {
                                   newItem ? AppColors.black : AppColors.primary,
                               borderRadius: BorderRadius.circular(12)),
                           child: Text(
-                            newItem ? ' NEW ' : '- 20%',
+                            newItem
+                                ? ' NEW '
+                                : '${product!.discountPercentage!.toInt()}% off',
                             style: AppTextStyle.regularWhite12,
                           ),
                         )
@@ -64,7 +75,7 @@ class ProductCard extends StatelessWidget {
                 child: Row(
                   children: [
                     RatingBar.builder(
-                      initialRating: 3,
+                      initialRating: product!.rating!.toDouble(),
                       minRating: 1,
                       direction: Axis.horizontal,
                       allowHalfRating: true,
@@ -79,7 +90,7 @@ class ProductCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 3),
                     Text(
-                      '(10)',
+                      '(${product!.reviews!})',
                       style: AppTextStyle.regularWhite12
                           .copyWith(color: AppColors.grey),
                     )
@@ -88,12 +99,12 @@ class ProductCard extends StatelessWidget {
               ),
               const SizedBox(height: 3),
               Text(
-                'Brand Name',
+                product!.brand!,
                 overflow: TextOverflow.ellipsis,
                 style:
                     AppTextStyle.regularBlack14.copyWith(color: AppColors.grey),
               ),
-              Text('Evening Dress Evening DresEvening Dres',
+              Text(product!.title!,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyle.boldBlack16),
               const SizedBox(height: 3),
@@ -101,14 +112,14 @@ class ProductCard extends StatelessWidget {
                 children: [
                   sale
                       ? Text(
-                          '\$50  ',
+                          '\$${product!.price.toString()}',
                           style: AppTextStyle.regularBlack14.copyWith(
                               color: AppColors.grey,
                               decoration: TextDecoration.lineThrough),
                         )
                       : Container(),
                   Text(
-                    '\$40 ',
+                    ' \$${(product!.price! - product!.price! * product!.discountPercentage! ~/ 100).toInt()}',
                     style: AppTextStyle.regularBlack14
                         .copyWith(color: AppColors.primary),
                   ),
@@ -116,24 +127,26 @@ class ProductCard extends StatelessWidget {
               )
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 95),
-            child: Material(
-              shadowColor: AppColors.grey,
-              color: AppColors.white,
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-              elevation: 4,
-              child: Container(
-                padding: const EdgeInsets.all(7),
-                child: Icon(
-                  favourate! ? Icons.favorite : Icons.favorite_outline,
-                  size: 19,
-                  color: favourate! ? AppColors.primary : AppColors.grey,
-                ),
-              ),
-            ),
-          )
+          showHeart!
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 95),
+                  child: Material(
+                    shadowColor: AppColors.grey,
+                    color: AppColors.white,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    elevation: 4,
+                    child: Container(
+                      padding: const EdgeInsets.all(7),
+                      child: Icon(
+                        favourate! ? Icons.favorite : Icons.favorite_outline,
+                        size: 19,
+                        color: favourate! ? AppColors.primary : AppColors.grey,
+                      ),
+                    ),
+                  ),
+                )
+              : Container()
         ],
       ),
     );

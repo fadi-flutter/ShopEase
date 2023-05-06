@@ -28,6 +28,10 @@ showFirebaseAuthException(BuildContext context, FirebaseAuthException e) {
   return errorMessage;
 }
 
+const String url = 'https://dummyjson.com/products';
+const String urlCategory = 'https://dummyjson.com/products/category';
+const String urlCategories = 'https://dummyjson.com/products/categories';
+
 rawSackbar(String title) {
   Get.rawSnackbar(
     backgroundColor: AppColors.black,

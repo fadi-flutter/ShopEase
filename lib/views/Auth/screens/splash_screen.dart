@@ -2,8 +2,10 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:shopease/utilities/app_colors.dart';
+import 'package:shopease/utilities/app_const.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
 import 'package:shopease/views/Auth/screens/signup_screen.dart';
+import 'package:shopease/views/Dashboard/dashboard.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -11,7 +13,8 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Timer(const Duration(seconds: 3), () {
-      Get.offAll(() =>  SignupScreen());
+      final user = auth.currentUser;
+      Get.offAll(() => user == null ? SignupScreen() : const DashBoard());
     });
     return Scaffold(
       backgroundColor: AppColors.primary,

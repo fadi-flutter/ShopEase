@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:shopease/utilities/app_colors.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
+import 'package:shopease/views/Auth/models/products_model.dart';
 import 'package:shopease/widgets/product_card.dart';
 
 class AllProducts extends StatelessWidget {
-  const AllProducts({super.key, required this.sale, required this.newItem});
+  const AllProducts(
+      {super.key,
+      required this.sale,
+      required this.newItem,
+      required this.productsList});
   final bool sale;
   final bool newItem;
+  final List<Products> productsList;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,9 +34,11 @@ class AllProducts extends StatelessWidget {
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             mainAxisExtent: 300, crossAxisCount: 2, mainAxisSpacing: 20),
         itemBuilder: (context, index) {
+          List data = productsList.reversed.toList();
           return ProductCard(
             sale: sale,
             newItem: newItem,
+            product: sale ? data[index] : productsList[index],
           );
         },
       ),

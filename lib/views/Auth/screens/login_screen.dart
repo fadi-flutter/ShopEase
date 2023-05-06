@@ -52,13 +52,24 @@ class LoginScreen extends StatelessWidget {
                         controller: emailC,
                         text: 'Email',
                       ),
-                      AuthTextField(
-                        text: 'Password',
-                        controller: passwordC,
+                      Obx(
+                        () => AuthTextField(
+                          controller: passwordC,
+                          obscureText: authC.hidePassword.value,
+                          text: 'Password',
+                          trailing: authC.hidePassword.value
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          trailingTap: () {
+                            authC.hidePassword.value
+                                ? authC.hidePassword(false)
+                                : authC.hidePassword(true);
+                          },
+                        ),
                       ),
                       GestureDetector(
                         onTap: () {
-                          Get.to(() =>  ForgetPasswordScreen());
+                          Get.to(() => ForgetPasswordScreen());
                         },
                         child: Container(
                           alignment: Alignment.centerRight,
@@ -66,7 +77,7 @@ class LoginScreen extends StatelessWidget {
                             TextSpan(
                               style: AppTextStyle.mediumBlack14,
                               children: const [
-                                TextSpan(text: 'Forget your password ?'),
+                                TextSpan(text: 'Forgot your password ?'),
                                 TextSpan(
                                   text: '\u{2192}',
                                   style: TextStyle(
@@ -100,14 +111,13 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         SocialButton(
+                          onTap: () {
+                            authC.googlelogin();
+                          },
                           image: 'assets/images/google.png',
                         ),
-                        SizedBox(width: 12),
-                        SocialButton(
-                          image: 'assets/images/facebook.png',
-                        )
                       ],
                     )
                   ],

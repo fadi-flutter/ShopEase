@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:shopease/utilities/app_colors.dart';
-import 'package:shopease/views/Auth/screens/signup_screen.dart';
+import 'package:shopease/views/Auth/screens/splash_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -12,6 +12,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(const MyApp());
 }
 
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
     return GetMaterialApp(
         title: 'Flutter Demo',
         builder: EasyLoading.init(),
@@ -45,6 +47,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: AppColors.primarySwatch,
         ),
-        home: SignupScreen());
+        home: const SplashScreen());
   }
 }

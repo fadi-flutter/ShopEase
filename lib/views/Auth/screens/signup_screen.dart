@@ -90,7 +90,7 @@ class SignupScreen extends StatelessWidget {
                       LongButton(
                         text: 'SIGN UP',
                         onPressed: () {
-                           //email signup method
+                          //email signup method
                           authC.signup(
                               emailC.text.trim(), passwordC.text, nameC.text);
                         },
@@ -110,14 +110,13 @@ class SignupScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         SocialButton(
+                          onTap: () {
+                            authC.googlelogin();
+                          },
                           image: 'assets/images/google.png',
                         ),
-                        SizedBox(width: 12),
-                        SocialButton(
-                          image: 'assets/images/facebook.png',
-                        )
                       ],
                     )
                   ],

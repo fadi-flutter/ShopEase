@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopease/utilities/app_colors.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
+import 'package:shopease/views/Auth/controller/auth_controller.dart';
 import 'package:shopease/views/Auth/screens/forget_password_screen.dart';
 import 'package:shopease/views/Auth/screens/signup_screen.dart';
 import 'package:shopease/widgets/auth_textfield.dart';
@@ -9,8 +10,10 @@ import 'package:shopease/widgets/long_button.dart';
 import 'package:shopease/widgets/social_button.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-
+  LoginScreen({super.key});
+  final AuthController authC = Get.find<AuthController>();
+  final TextEditingController emailC = TextEditingController();
+  final TextEditingController passwordC = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -25,7 +28,7 @@ class LoginScreen extends StatelessWidget {
           backgroundColor: AppColors.bgColor,
           leading: BackButton(
             onPressed: () {
-              Get.to(() => const SignupScreen());
+              Get.to(() => SignupScreen());
             },
             color: AppColors.black,
           ),
@@ -45,15 +48,17 @@ class LoginScreen extends StatelessWidget {
                 SingleChildScrollView(
                   child: Column(
                     children: [
-                      const AuthTextField(
+                      AuthTextField(
+                        controller: emailC,
                         text: 'Email',
                       ),
-                      const AuthTextField(
+                      AuthTextField(
                         text: 'Password',
+                        controller: passwordC,
                       ),
                       GestureDetector(
                         onTap: () {
-                          Get.to(() => const ForgetPasswordScreen());
+                          Get.to(() =>  ForgetPasswordScreen());
                         },
                         child: Container(
                           alignment: Alignment.centerRight,
@@ -75,7 +80,10 @@ class LoginScreen extends StatelessWidget {
                       const SizedBox(height: 15),
                       LongButton(
                         text: 'LOGIN',
-                        onPressed: () {},
+                        onPressed: () {
+                          //email login method
+                          authC.login(emailC.text, passwordC.text);
+                        },
                       ),
                     ],
                   ),

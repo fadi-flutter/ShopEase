@@ -7,19 +7,28 @@ class AuthTextField extends StatelessWidget {
     super.key,
     required this.text,
     this.trailing,
+    this.controller,
+    this.obscureText = false,
+    this.trailingTap,
   });
   final String text;
-  final Widget? trailing;
+  final IconData? trailing;
+  final VoidCallback? trailingTap;
+  final bool? obscureText;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: TextFormField(
+        obscureText: obscureText!,
+        controller: controller,
         cursorColor: AppColors.grey,
         style: AppTextStyle.mediumBlack14,
         decoration: InputDecoration(
-          suffixIcon: trailing,
+          suffixIcon:
+              GestureDetector(onTap: trailingTap, child: Icon(trailing)),
           labelText: text,
           labelStyle:
               AppTextStyle.regularWhite16.copyWith(color: AppColors.grey),

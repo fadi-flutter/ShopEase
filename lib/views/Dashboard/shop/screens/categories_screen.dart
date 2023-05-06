@@ -36,9 +36,7 @@ class CategoriesScreen extends StatelessWidget {
           child: Column(
             children: [
               const AuthTextField(
-                text: 'Search Category',
-                trailing: Icon(Icons.search),
-              ),
+                  text: 'Search Category', trailing: Icons.search),
               const SizedBox(height: 8),
               Text(
                 'Choose category',

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "520896280045",
+    "project_id": "shopeease-45b10",
+    "storage_bucket": "shopeease-45b10.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520896280045:android:b5cb2d5be5d0f0cddb63e4",
+        "android_client_info": {
+          "package_name": "com.example.shopping_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520896280045-ic9ltl5e2hdqjhd9ebso5m5d77lj4ivb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJ1fn9xi_vQG5GIEnMa8Gp5-CCZ9Huio0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520896280045-ic9ltl5e2hdqjhd9ebso5m5d77lj4ivb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

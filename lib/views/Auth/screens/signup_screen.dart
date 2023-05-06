@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopease/utilities/app_colors.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
+import 'package:shopease/views/Auth/controller/auth_controller.dart';
 import 'package:shopease/views/Auth/screens/login_screen.dart';
 import 'package:shopease/widgets/auth_textfield.dart';
 import 'package:shopease/widgets/long_button.dart';
 import 'package:shopease/widgets/social_button.dart';
 
 class SignupScreen extends StatelessWidget {
-  const SignupScreen({super.key});
-
+  SignupScreen({super.key});
+  final AuthController authC = Get.put(AuthController());
+  final TextEditingController nameC = TextEditingController();
+  final TextEditingController emailC = TextEditingController();
+  final TextEditingController passwordC = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -38,18 +42,32 @@ class SignupScreen extends StatelessWidget {
                 SingleChildScrollView(
                   child: Column(
                     children: [
-                      const AuthTextField(
+                      AuthTextField(
+                        controller: nameC,
                         text: 'Name',
                       ),
-                      const AuthTextField(
+                      AuthTextField(
+                        controller: emailC,
                         text: 'Email',
                       ),
-                      const AuthTextField(
-                        text: 'Password',
+                      Obx(
+                        () => AuthTextField(
+                          controller: passwordC,
+                          obscureText: authC.hidePassword.value,
+                          text: 'Password',
+                          trailing: authC.hidePassword.value
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          trailingTap: () {
+                            authC.hidePassword.value
+                                ? authC.hidePassword(false)
+                                : authC.hidePassword(true);
+                          },
+                        ),
                       ),
                       GestureDetector(
                         onTap: () {
-                          Get.to(() => const LoginScreen());
+                          Get.to(() => LoginScreen());
                         },
                         child: Container(
                           alignment: Alignment.centerRight,
@@ -71,7 +89,11 @@ class SignupScreen extends StatelessWidget {
                       const SizedBox(height: 15),
                       LongButton(
                         text: 'SIGN UP',
-                        onPressed: () {},
+                        onPressed: () {
+                           //email signup method
+                          authC.signup(
+                              emailC.text.trim(), passwordC.text, nameC.text);
+                        },
                       ),
                     ],
                   ),

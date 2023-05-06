@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopease/utilities/app_colors.dart';
+import 'package:shopease/utilities/app_const.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
+import 'package:shopease/views/Auth/controller/auth_controller.dart';
 import 'package:shopease/widgets/auth_textfield.dart';
 import 'package:shopease/widgets/long_button.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
-  const ForgetPasswordScreen({super.key});
-
+  ForgetPasswordScreen({super.key});
+  final AuthController authC = Get.find<AuthController>();
+  final TextEditingController emailC = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -47,13 +50,17 @@ class ForgetPasswordScreen extends StatelessWidget {
                         style: AppTextStyle.regularBlack12,
                       ),
                       const SizedBox(height: 10),
-                      const AuthTextField(
+                      AuthTextField(
                         text: 'Email',
+                        controller: emailC,
                       ),
                       const SizedBox(height: 10),
                       LongButton(
                         text: 'SEND',
-                        onPressed: () {},
+                        onPressed: () {
+                          //forgot password method
+                          authC.forgotPassword(emailC.text);
+                        },
                       ),
                     ],
                   ),

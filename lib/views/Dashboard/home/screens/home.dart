@@ -5,6 +5,7 @@ import 'package:shopease/utilities/app_textstyle.dart';
 import 'package:shopease/views/Auth/models/products_model.dart';
 import 'package:shopease/views/Dashboard/home/controllers/home_controller.dart';
 import 'package:shopease/views/Dashboard/home/screens/sale_new_screen.dart';
+import 'package:shopease/views/Dashboard/product/screens/product_details.dart';
 import 'package:shopease/widgets/long_button.dart';
 import 'package:shopease/widgets/product_card.dart';
 
@@ -116,10 +117,17 @@ class Home extends StatelessWidget {
                           itemCount: 5,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
-                            return ProductCard(
-                              product: snapshot.data![index],
-                              sale: false,
-                              newItem: true,
+                            return GestureDetector(
+                              onTap: () {
+                                Get.to(() => ProductDetails(
+                                      product: snapshot.data![index],
+                                    ));
+                              },
+                              child: ProductCard(
+                                product: snapshot.data![index],
+                                sale: false,
+                                newItem: true,
+                              ),
                             );
                           },
                         ),

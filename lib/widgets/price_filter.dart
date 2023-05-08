@@ -37,7 +37,6 @@ class PriceFilter extends StatelessWidget {
                   () => GestureDetector(
                     onTap: () {
                       catalogC!.filterIndex(index);
-                      catalogC!.getProducts();
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(vertical: 3),

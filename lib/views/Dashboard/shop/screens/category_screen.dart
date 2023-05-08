@@ -7,10 +7,17 @@ import 'package:shopease/views/Dashboard/shop/controllers/catalog_controller.dar
 import 'package:shopease/widgets/price_filter.dart';
 import 'package:shopease/widgets/product_card.dart';
 
-class CategoryScreen extends StatelessWidget {
-  CategoryScreen({super.key, required this.category});
-  final CatalogController catalogC = Get.find<CatalogController>();
+class CategoryScreen extends StatefulWidget {
+  const CategoryScreen({super.key, required this.category});
   final String category;
+
+  @override
+  State<CategoryScreen> createState() => _CategoryScreenState();
+}
+
+class _CategoryScreenState extends State<CategoryScreen> {
+  final CatalogController catalogC = Get.find<CatalogController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,12 +27,12 @@ class CategoryScreen extends StatelessWidget {
         backgroundColor: AppColors.white,
         elevation: 1,
         title: Text(
-          category.capitalize!,
+          widget.category.capitalize!,
           style: AppTextStyle.mediumBlack20,
         ),
       ),
       body: FutureBuilder<List<Products>>(
-        future: catalogC.getCategoriesProducts(category),
+        future: catalogC.getCategoriesProducts(widget.category),
         builder: (context, snapshot) {
           return snapshot.hasData
               ? Column(
@@ -61,7 +68,9 @@ class CategoryScreen extends StatelessWidget {
                                         topRight: Radius.circular(20))),
                                 context: context,
                                 builder: (BuildContext context) {
-                                  return PriceFilter();
+                                  return PriceFilter(
+                                    catalogC: catalogC,
+                                  );
                                 },
                               );
                             },
@@ -75,9 +84,18 @@ class CategoryScreen extends StatelessWidget {
                                   ],
                                 ),
                                 Text(
-                                  'Price lowest to high',
+                                  catalogC.filterIndex.value == 10
+                                      ? 'Filter the products'
+                                      : catalogC.filterIndex.value == 0
+                                          ? 'Customer reviews'
+                                          : catalogC.filterIndex.value == 1
+                                              ? 'Price: lowest to high'
+                                              : 'Price: highest to low',
                                   style: AppTextStyle.regularBlack16,
                                 ),
+                                 const SizedBox(
+                                  width: 06,
+                                )
                               ],
                             ),
                           )
@@ -97,6 +115,26 @@ class CategoryScreen extends StatelessWidget {
                           mainAxisExtent: 310,
                         ),
                         itemBuilder: ((context, index) {
+                          //checking when user changes filter
+                          catalogC.filterIndex.listen((p0) {
+                            setState(() {});
+                          });
+                          catalogC.filterIndex.value == 10
+                              //if user have not selected any filter then show normal data
+                              ? snapshot.data
+                              //if user seleted customers reviews filter
+                              : catalogC.filterIndex.value == 0
+                                  ? snapshot.data!.sort(((a, b) =>
+                                      b.reviews!.compareTo(a.reviews!)))
+                                  //if user seleted price low to high filter
+                                  : catalogC.filterIndex.value == 1
+                                      ? snapshot.data!.sort(((a, b) => a.price!
+                                          .toInt()
+                                          .compareTo(b.price!.toInt())))
+                                      //if user seleted price high to low filter
+                                      : snapshot.data!.sort(((a, b) => b.price!
+                                          .toInt()
+                                          .compareTo(a.price!.toInt())));
                           return ProductCard(
                             sale: false,
                             product: snapshot.data![index],

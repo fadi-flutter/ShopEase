@@ -9,6 +9,7 @@ import 'package:shopease/widgets/auth_textfield.dart';
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key, required this.catalogC});
   final CatalogController catalogC;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,65 +24,64 @@ class CategoriesScreen extends StatelessWidget {
           style: AppTextStyle.mediumBlack20,
         ),
       ),
-      body: FutureBuilder<List>(
-        future: catalogC.getCategories(),
-        builder: (context, snapshot) {
-          return snapshot.hasData
-              ? SafeArea(
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                    child: Column(
-                      children: [
-                        AuthTextField(
-                            controller: catalogC.searchC.value,
-                            text: 'Search Category',
-                            trailing: Icons.search),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Choose category',
-                          style: AppTextStyle.mediumBlack16
-                              .copyWith(color: AppColors.grey),
-                        ),
-                        const SizedBox(height: 8),
-                        Expanded(
-                          child: ListView.builder(
-                            itemCount: snapshot.data!.length,
-                            physics: const BouncingScrollPhysics(),
-                            itemBuilder: ((context, index) {
-                              print(snapshot.data!.length.toString());
-                              return GestureDetector(
-                                onTap: () {
-                                  Get.to(() => CategoryScreen(
-                                        category: snapshot.data![index],
-                                      ));
-                                },
-                                child: Card(
-                                  elevation: 1,
-                                  shadowColor: AppColors.lightGrey,
-                                  margin:
-                                      const EdgeInsets.symmetric(vertical: 5),
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15, horizontal: 18),
-                                    child: Text(
-                                      '${snapshot.data![index]}'.capitalize!,
-                                      style: AppTextStyle.regularBlack16,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }),
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          child: Obx(
+            () => Column(
+              children: [
+                AuthTextField(
+                    controller: catalogC.searchC.value,
+                    text: 'Search Category',
+                    trailing: Icons.search),
+                const SizedBox(height: 8),
+                Text(
+                  'Choose category',
+                  style: AppTextStyle.mediumBlack16
+                      .copyWith(color: AppColors.grey),
+                ),
+                const SizedBox(height: 8),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: catalogC.searchedData.value.isEmpty
+                        ? catalogC.categoriesList.length
+                        : catalogC.sortedList.length,
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: ((context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          catalogC.filterIndex(10);
+                          Get.to(() => CategoryScreen(
+                                category: catalogC.searchedData.value.isEmpty
+                                    ? catalogC.categoriesList[index]
+                                    : catalogC.sortedList[index],
+                              ));
+                        },
+                        child: Card(
+                          elevation: 1,
+                          shadowColor: AppColors.lightGrey,
+                          margin: const EdgeInsets.symmetric(vertical: 5),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 18),
+                            child: Text(
+                              catalogC.searchedData.value.isEmpty
+                                  ? catalogC.categoriesList[index].capitalize!
+                                  : catalogC.sortedList[index]
+                                      .toString()
+                                      .capitalize!,
+                              style: AppTextStyle.regularBlack16,
+                            ),
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      );
+                    }),
                   ),
                 )
-              : const Center(
-                  child: CircularProgressIndicator(),
-                );
-        },
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

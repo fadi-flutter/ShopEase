@@ -3,7 +3,7 @@ import 'dart:math';
 class Products {
   // int? id;
   String? title;
-  // String? description;
+  String? description;
   int? price;
   double? discountPercentage;
   num? rating;
@@ -12,12 +12,12 @@ class Products {
   // String? category;
   String? thumbnail;
   int? reviews;
-  // List<String>? images;
+  List<String>? images;
 
   Products({
     // {this.id,
     this.title,
-    // this.description,
+    this.description,
     this.price,
     this.reviews,
     this.discountPercentage,
@@ -26,7 +26,7 @@ class Products {
     this.brand,
     // this.category,
     this.thumbnail,
-    // this.images,
+    this.images,
   });
 
   Random random = Random();
@@ -36,7 +36,7 @@ class Products {
     title = json['title'];
     reviews = randomNumber;
 
-    // description = json['description'];
+    description = json['description'];
     price = json['price'];
     discountPercentage = json['discountPercentage'];
     rating = json['rating'];
@@ -44,6 +44,6 @@ class Products {
     brand = json['brand'];
     // category = json['category'];
     thumbnail = json['thumbnail'];
-    // images = List.from(json['images']);
+    images = List.from(json['images']);
   }
 }

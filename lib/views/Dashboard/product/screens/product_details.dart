@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
 import 'package:shopease/utilities/app_colors.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
+import 'package:shopease/views/Auth/models/products_model.dart';
 import 'package:shopease/widgets/long_button.dart';
-import 'package:shopease/widgets/product_card.dart';
 
 class ProductDetails extends StatelessWidget {
-  const ProductDetails({super.key});
-
+  const ProductDetails({super.key, required this.product});
+  final Products product;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height * 1;
@@ -20,7 +21,7 @@ class ProductDetails extends StatelessWidget {
         backgroundColor: AppColors.white,
         elevation: 0,
         title: Text(
-          'Iphone x',
+          product.title!.capitalize!,
           style: AppTextStyle.mediumBlack20,
         ),
       ),
@@ -32,17 +33,17 @@ class ProductDetails extends StatelessWidget {
                 height: height * 0.52,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 4,
+                  itemCount: product.images!.length,
                   itemBuilder: ((context, index) {
                     return Container(
                       margin: const EdgeInsets.only(right: 4),
                       width: width * 0.7,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         color: AppColors.primary,
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage(
-                            'assets/images/banner.jpeg',
+                          image: NetworkImage(
+                            product.images![index],
                           ),
                         ),
                       ),
@@ -92,20 +93,20 @@ class ProductDetails extends StatelessWidget {
                             SizedBox(
                               width: width * 0.7,
                               child: Text(
-                                'Samsung',
+                                product.brand!.capitalize!,
                                 overflow: TextOverflow.ellipsis,
                                 style: AppTextStyle.boldBlack24,
                               ),
                             ),
                             Text(
-                              'Galaxy 22 ulta pro',
+                              product.title!.capitalize!,
                               style: AppTextStyle.regularBlack14
                                   .copyWith(color: AppColors.grey),
                             ),
                             Row(
                               children: [
                                 RatingBar.builder(
-                                  initialRating: 3,
+                                  initialRating: product.rating!.toDouble(),
                                   minRating: 1,
                                   direction: Axis.horizontal,
                                   allowHalfRating: true,
@@ -121,7 +122,7 @@ class ProductDetails extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 3),
                                 Text(
-                                  '(10)',
+                                  '(${product.reviews!})',
                                   style: AppTextStyle.regularWhite12
                                       .copyWith(color: AppColors.grey),
                                 )
@@ -130,14 +131,14 @@ class ProductDetails extends StatelessWidget {
                           ],
                         ),
                         Text(
-                          '\$ 19.19',
+                          '\$ ${product.price}',
                           style: AppTextStyle.boldBlack24,
                         )
                       ],
                     ),
                     const SizedBox(height: 13),
                     Text(
-                      'Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.',
+                      product.description!.capitalize!,
                       style: AppTextStyle.regularBlack14,
                     ),
                     const SizedBox(height: 12),
@@ -153,21 +154,21 @@ class ProductDetails extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              SizedBox(
-                height: 300,
-                width: double.infinity,
-                child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: 3,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return const ProductCard(
-                      sale: false,
-                      stackRemove: true,
-                    );
-                  },
-                ),
-              )
+              // SizedBox(
+              //   height: 300,
+              //   width: double.infinity,
+              //   child: ListView.builder(
+              //     physics: const BouncingScrollPhysics(),
+              //     itemCount: 3,
+              //     scrollDirection: Axis.horizontal,
+              //     itemBuilder: (context, index) {
+              //       return const ProductCard(
+              //         sale: false,
+              //         stackRemove: true,
+              //       );
+              //     },
+              //   ),
+              // )
             ],
           ),
         ),

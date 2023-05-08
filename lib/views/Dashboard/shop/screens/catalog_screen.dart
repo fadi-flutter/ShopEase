@@ -13,6 +13,7 @@ class CatalogScreen extends StatefulWidget {
   @override
   State<CatalogScreen> createState() => _CatalogScreenState();
 }
+
 class _CatalogScreenState extends State<CatalogScreen> {
   final CatalogController catalogC = Get.put(CatalogController());
   @override
@@ -26,6 +27,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
         actions: [
           IconButton(
             onPressed: () {
+              
               Get.to(() => CategoriesScreen(catalogC: catalogC));
             },
             icon: const Icon(Icons.search, size: 26, color: AppColors.black),
@@ -90,7 +92,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
                                 ),
                                 Text(
                                   catalogC.filterIndex.value == 10
-                                      ? 'Filter the prices'
+                                      ? 'Filter the products'
                                       : catalogC.filterIndex.value == 0
                                           ? 'Customer reviews'
                                           : catalogC.filterIndex.value == 1

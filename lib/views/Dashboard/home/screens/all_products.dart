@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shopease/utilities/app_colors.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
 import 'package:shopease/views/Auth/models/products_model.dart';
+import 'package:shopease/views/Dashboard/product/screens/product_details.dart';
 import 'package:shopease/widgets/product_card.dart';
 
 class AllProducts extends StatelessWidget {
@@ -35,10 +37,17 @@ class AllProducts extends StatelessWidget {
             mainAxisExtent: 300, crossAxisCount: 2, mainAxisSpacing: 20),
         itemBuilder: (context, index) {
           List data = productsList.reversed.toList();
-          return ProductCard(
-            sale: sale,
-            newItem: newItem,
-            product: sale ? data[index] : productsList[index],
+          return GestureDetector(
+            onTap: () {
+              Get.to(() => ProductDetails(
+                    product: sale ? data[index] : productsList[index],
+                  ));
+            },
+            child: ProductCard(
+              sale: sale,
+              newItem: newItem,
+              product: sale ? data[index] : productsList[index],
+            ),
           );
         },
       ),

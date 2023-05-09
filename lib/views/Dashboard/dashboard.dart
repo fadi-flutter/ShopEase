@@ -21,7 +21,7 @@ class _DashBoardState extends State<DashBoard> {
      const CatalogScreen(),
     const CartScreen(),
     const FavourteScreen(),
-    const ProfileScreen(),
+     ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {

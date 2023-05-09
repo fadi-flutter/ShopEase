@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopease/utilities/app_colors.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
+import 'package:shopease/views/Dashboard/profile/controllers/profile_controller.dart';
 import 'package:shopease/views/Dashboard/profile/screens/setttings_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-
+  ProfileScreen({super.key});
+  final ProfileController profileC = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,15 +28,18 @@ class ProfileScreen extends StatelessWidget {
           child: Column(
             children: [
               const CircleAvatar(
-                backgroundColor: AppColors.black,
+                backgroundColor: AppColors.white,
+                backgroundImage: AssetImage(
+                  'assets/images/profile.png',
+                ),
                 radius: 45,
               ),
               Text(
-                'Fahad Ali',
+                profileC.userName.value.capitalize!,
                 style: AppTextStyle.mediumBlack24,
               ),
               Text(
-                'fahadalicspb3010@gmail.com',
+                profileC.userEmail.value,
                 style: AppTextStyle.regularBlack14.copyWith(
                   color: AppColors.grey,
                 ),
@@ -54,7 +58,9 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 trailing: GestureDetector(
                   onTap: () {
-                    Get.to(() => const SettingScreen());
+                    Get.to(() => SettingScreen(
+                          profileC: profileC,
+                        ));
                   },
                   child: const Icon(
                     Icons.arrow_forward_ios,

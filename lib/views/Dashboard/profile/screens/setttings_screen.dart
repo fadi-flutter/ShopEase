@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shopease/utilities/app_colors.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
+import 'package:shopease/views/Dashboard/profile/controllers/profile_controller.dart';
 import 'package:shopease/widgets/auth_textfield.dart';
 import 'package:shopease/widgets/long_button.dart';
 
 class SettingScreen extends StatelessWidget {
-  const SettingScreen({super.key});
-
+  const SettingScreen({super.key, required this.profileC});
+  final ProfileController profileC;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -36,7 +37,9 @@ class SettingScreen extends StatelessWidget {
                     backgroundColor: AppColors.primary,
                     radius: 50,
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        profileC.getProfileImage();
+                      },
                       icon: const Icon(
                         Icons.camera_alt,
                         color: AppColors.white,

@@ -9,7 +9,7 @@ class Products {
   num? rating;
   // int? stock;
   String? brand;
-  // String? category;
+  String? category;
   String? thumbnail;
   int? reviews;
   List<String>? images;
@@ -24,7 +24,7 @@ class Products {
     this.rating,
     // this.stock,
     this.brand,
-    // this.category,
+    this.category,
     this.thumbnail,
     this.images,
   });
@@ -42,7 +42,7 @@ class Products {
     rating = json['rating'];
     // stock = json['stock'];
     brand = json['brand'];
-    // category = json['category'];
+    category = json['category'];
     thumbnail = json['thumbnail'];
     images = List.from(json['images']);
   }

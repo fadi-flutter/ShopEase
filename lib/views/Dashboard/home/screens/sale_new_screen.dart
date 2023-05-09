@@ -4,6 +4,7 @@ import 'package:shopease/utilities/app_colors.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
 import 'package:shopease/views/Auth/models/products_model.dart';
 import 'package:shopease/views/Dashboard/home/screens/all_products.dart';
+import 'package:shopease/views/Dashboard/product/screens/product_details.dart';
 import 'package:shopease/widgets/product_card.dart';
 
 class SaleNewScreen extends StatelessWidget {
@@ -99,9 +100,16 @@ class SaleNewScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   List data = productsList.reversed.toList();
-                  return ProductCard(
-                    sale: true,
-                    product: data[index],
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(() => ProductDetails(
+                            product: data[index],
+                          ));
+                    },
+                    child: ProductCard(
+                      sale: true,
+                      product: data[index],
+                    ),
                   );
                 },
               ),
@@ -148,10 +156,17 @@ class SaleNewScreen extends StatelessWidget {
                 itemCount: 5,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return ProductCard(
-                    sale: false,
-                    newItem: true,
-                    product: productsList[index],
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(() => ProductDetails(
+                            product: productsList[index],
+                          ));
+                    },
+                    child: ProductCard(
+                      sale: false,
+                      newItem: true,
+                      product: productsList[index],
+                    ),
                   );
                 },
               ),

@@ -1,7 +1,8 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:shopease/utilities/app_const.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,6 +13,9 @@ class ProfileController extends GetxController {
   RxString userImage = ''.obs;
   final ImagePicker picker = ImagePicker();
   Rx<XFile> pickImage = XFile('').obs;
+  final TextEditingController nameC = TextEditingController();
+  final TextEditingController emailC = TextEditingController();
+
   getProfile() async {
     final userID = auth.currentUser!.uid;
     DocumentSnapshot doc =
@@ -22,16 +26,34 @@ class ProfileController extends GetxController {
   }
 
   updateSettings(
-      String image, String name, String password, XFile pickedImage) {
+    XFile pickedImage, {
+    required String image,
+    required String name,
+  }) async {
     String url = '';
-    if (pickImage.value.path != '') {
-      url = uploadImage(pickedImage);
+    EasyLoading.show();
+    try {
+      final user = auth.currentUser;
+      if (pickImage.value.path != '') {
+        url = await uploadImage(pickedImage);
+      }
+      await firestore.collection('users').doc(user!.uid).update({
+        'image': url == '' ? image : url,
+        'name': name.isEmpty ? userName.value : name,
+      });
+      Get.back();
+      await getProfile();
+      rawSackbar('Settings updated succesfully');
+    } on Exception catch (e) {
+      EasyLoading.dismiss();
+      rawSackbar('Something went wrong, please try again ${e.toString()}');
     }
-    final userID = auth.currentUser!.uid;
-    firestore.collection('users').doc(userID).update({
-      'image': pickImage.value.path != '' ? image : url,
-      'name': name,
-    });
+    EasyLoading.dismiss();
+  }
+
+  sendEmail() async {
+    await auth.sendPasswordResetEmail(email: emailC.text);
+    rawSackbar('Email sent successfuly');
   }
 
   getProfileImage() async {

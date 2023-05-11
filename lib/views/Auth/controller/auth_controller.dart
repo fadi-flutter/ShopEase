@@ -30,7 +30,8 @@ class AuthController extends GetxController {
         'time_stamp': DateTime.now(),
         'name': name,
         'email': email,
-        'id': userID
+        'id': userID,
+        'image': ''
       });
       EasyLoading.dismiss();
       Get.offAll(() => const DashBoard());

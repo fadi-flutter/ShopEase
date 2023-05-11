@@ -10,12 +10,14 @@ class AuthTextField extends StatelessWidget {
     this.controller,
     this.obscureText = false,
     this.trailingTap,
+    this.readOnly = false,
   });
   final String text;
   final IconData? trailing;
   final VoidCallback? trailingTap;
   final bool? obscureText;
   final TextEditingController? controller;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class AuthTextField extends StatelessWidget {
       child: TextFormField(
         obscureText: obscureText!,
         controller: controller,
+        readOnly: readOnly,
         cursorColor: AppColors.grey,
         style: AppTextStyle.mediumBlack14,
         decoration: InputDecoration(
@@ -34,14 +37,23 @@ class AuthTextField extends StatelessWidget {
               AppTextStyle.regularWhite16.copyWith(color: AppColors.grey),
           filled: true,
           fillColor: AppColors.white,
-          focusedBorder: OutlineInputBorder(
-            borderRadius: const BorderRadius.all(Radius.circular(08)),
-            borderSide: BorderSide(color: AppColors.grey),
-          ),
-          enabledBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(08)),
-            borderSide: BorderSide(color: AppColors.bgColor),
-          ),
+          focusedBorder: !readOnly
+              ? OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(Radius.circular(08)),
+                  borderSide: BorderSide(color: AppColors.grey),
+                )
+              : const OutlineInputBorder(
+                  borderSide: BorderSide(color: AppColors.bgColor),
+                ),
+          enabledBorder: !readOnly
+              ? const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(08)),
+                  borderSide: BorderSide(color: AppColors.bgColor),
+                )
+              : const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(08)),
+                  borderSide: BorderSide(color: AppColors.bgColor),
+                ),
         ),
       ),
     );

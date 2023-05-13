@@ -46,16 +46,22 @@ class SettingScreen extends StatelessWidget {
                     child: Obx(
                       () => ClipRRect(
                         borderRadius: BorderRadius.circular(100),
-                        child: profileC.pickImage.value.path == ''
-                            ? Image.asset(
-                                'assets/images/profile.png',
+                        child: profileC.userImage.value != ''
+                            ? Image.network(
+                                profileC.userImage.value,
                                 height: 90,
                                 fit: BoxFit.cover,
                               )
-                            : Image.file(
-                                File(profileC.pickImage.value.path),
-                                height: 90,
-                              ),
+                            : profileC.pickImage.value.path == ''
+                                ? Image.asset(
+                                    'assets/images/profile.png',
+                                    height: 90,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.file(
+                                    File(profileC.pickImage.value.path),
+                                    height: 90,
+                                  ),
                       ),
                     ),
                   ),

@@ -18,10 +18,10 @@ class _DashBoardState extends State<DashBoard> {
   int index = 0;
   List pages = [
     const Home(),
-     const CatalogScreen(),
-    const CartScreen(),
+    const CatalogScreen(),
+    CartScreen(),
     const FavourteScreen(),
-     ProfileScreen(),
+    ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {

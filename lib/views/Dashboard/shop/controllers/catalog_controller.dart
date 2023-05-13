@@ -40,6 +40,14 @@ class CatalogController extends GetxController {
       return data;
     }
   }
+   Stream<List<String>> getFavourites() {
+    final userID = auth.currentUser!.uid;
+    final collectionRef =
+        firestore.collection('users').doc(userID).collection('favourites');
+    return collectionRef.snapshots().map((querySnapshot) {
+      return querySnapshot.docs.map((doc) => doc.id).toList();
+    });
+  }
 
   List<String> categoriesList = <String>[
     "smartphones",

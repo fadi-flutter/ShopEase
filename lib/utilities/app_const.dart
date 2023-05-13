@@ -35,7 +35,7 @@ const String urlCategories = 'https://dummyjson.com/products/categories';
 rawSackbar(String title) {
   Get.rawSnackbar(
     backgroundColor: AppColors.black,
-    duration: const Duration(seconds: 4),
+    duration: const Duration(seconds: 3),
     messageText: Center(
       child: Text(
         title,

@@ -1,27 +1,29 @@
 import 'dart:math';
 
 class Products {
-  // int? id;
+  int? id;
   String? title;
   String? description;
   int? price;
   double? discountPercentage;
   num? rating;
-  // int? stock;
+  int? stock;
   String? brand;
   String? category;
+  int? quantity;
   String? thumbnail;
   int? reviews;
   List<String>? images;
 
   Products({
-    // {this.id,
+    this.id,
     this.title,
     this.description,
     this.price,
     this.reviews,
     this.discountPercentage,
     this.rating,
+    this.quantity,
     // this.stock,
     this.brand,
     this.category,
@@ -32,10 +34,9 @@ class Products {
   Random random = Random();
   Products.fromJson(Map<String, dynamic> json) {
     int randomNumber = random.nextInt(400) + 3;
-    // id = json['id'];
+    id = json['id'];
     title = json['title'];
     reviews = randomNumber;
-
     description = json['description'];
     price = json['price'];
     discountPercentage = json['discountPercentage'];

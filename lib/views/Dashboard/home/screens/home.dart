@@ -4,6 +4,7 @@ import 'package:shopease/utilities/app_colors.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
 import 'package:shopease/views/Auth/models/products_model.dart';
 import 'package:shopease/views/Dashboard/home/controllers/home_controller.dart';
+import 'package:shopease/views/Dashboard/home/screens/all_products.dart';
 import 'package:shopease/views/Dashboard/home/screens/sale_new_screen.dart';
 import 'package:shopease/views/Dashboard/product/screens/product_details.dart';
 import 'package:shopease/widgets/long_button.dart';
@@ -100,7 +101,9 @@ class Home extends StatelessWidget {
                             ),
                             GestureDetector(
                                 onTap: () {
-                                  Get.to(() => SaleNewScreen(
+                                  Get.to(() => AllProducts(
+                                        sale: false,
+                                        newItem: true,
                                         productsList: snapshot.data!,
                                       ));
                                 },
@@ -124,6 +127,7 @@ class Home extends StatelessWidget {
                                     ));
                               },
                               child: ProductCard(
+                                showHeart: false,
                                 product: snapshot.data![index],
                                 sale: false,
                                 newItem: true,

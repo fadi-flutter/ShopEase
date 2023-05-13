@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:shopease/utilities/app_colors.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
+import 'package:shopease/views/Auth/models/products_model.dart';
+import 'package:shopease/views/Dashboard/cart/controllers/cart_controller.dart';
 import 'package:shopease/widgets/operation_button.dart';
 
 // ignore: must_be_immutable
 class CartItem extends StatelessWidget {
   CartItem({
     super.key,
+    required this.product,
+    required this.cartC,
   });
+  final Products product;
+  final CartController cartC;
   List optionsList = <String>['Add to favourites', 'Remove from cart'];
   @override
   Widget build(BuildContext context) {
@@ -29,11 +35,11 @@ class CartItem extends StatelessWidget {
             children: [
               Container(
                 width: 120,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage(
-                      'assets/images/banner.jpeg',
+                    image: NetworkImage(
+                      product.thumbnail!,
                     ),
                   ),
                 ),
@@ -50,13 +56,13 @@ class CartItem extends StatelessWidget {
                         SizedBox(
                           width: 170,
                           child: Text(
-                            'Pull Over Pull OverPull Over',
+                            product.title!,
                             overflow: TextOverflow.ellipsis,
                             style: AppTextStyle.mediumBlack16,
                           ),
                         ),
                         Text(
-                          'Brand name',
+                          product.brand!,
                           style: AppTextStyle.regularBlack12
                               .copyWith(color: AppColors.grey),
                         ),
@@ -64,15 +70,27 @@ class CartItem extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        const OperationButton(icon: Icons.remove),
+                        OperationButton(
+                          icon: Icons.remove,
+                          onPressed: () {
+                            if (product.quantity! > 1) {
+                              cartC.removeQuantity(product);
+                            }
+                          },
+                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 9),
                           child: Text(
-                            '12',
+                            product.quantity!.toString(),
                             style: AppTextStyle.regularBlack16,
                           ),
                         ),
-                        const OperationButton(icon: Icons.add),
+                        OperationButton(
+                          icon: Icons.add,
+                          onPressed: () {
+                            cartC.addQuantity(product);
+                          },
+                        ),
                       ],
                     )
                   ],
@@ -101,7 +119,7 @@ class CartItem extends StatelessWidget {
                   onSelected: (value) {},
                 ),
                 Text(
-                  '\$55',
+                  '\$ ${product.price}',
                   style: AppTextStyle.mediumBlack16,
                 )
               ],

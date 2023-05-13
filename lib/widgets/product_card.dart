@@ -11,7 +11,7 @@ class ProductCard extends StatelessWidget {
     this.newItem = false,
     this.stackRemove = false,
     this.favourate = false,
-    this.showHeart = false,
+    this.showHeart = true,
     this.product,
   });
   final bool sale;

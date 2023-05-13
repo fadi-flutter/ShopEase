@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
     return GetMaterialApp(
-        title: 'Flutter Demo',
+        title: 'ShopeEase',
         builder: EasyLoading.init(),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

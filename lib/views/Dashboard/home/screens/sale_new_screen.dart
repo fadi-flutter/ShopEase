@@ -103,11 +103,13 @@ class SaleNewScreen extends StatelessWidget {
                   return GestureDetector(
                     onTap: () {
                       Get.to(() => ProductDetails(
+                            sale: true,
                             product: data[index],
                           ));
                     },
                     child: ProductCard(
                       sale: true,
+                      showHeart: false,
                       product: data[index],
                     ),
                   );
@@ -164,6 +166,7 @@ class SaleNewScreen extends StatelessWidget {
                     },
                     child: ProductCard(
                       sale: false,
+                      showHeart: false,
                       newItem: true,
                       product: productsList[index],
                     ),

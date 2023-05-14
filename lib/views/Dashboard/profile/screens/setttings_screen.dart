@@ -40,6 +40,8 @@ class SettingScreen extends StatelessWidget {
                     profileC.getProfileImage();
                   },
                   child: Container(
+                    height: 90,
+                    width: 90,
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                     ),
@@ -49,18 +51,15 @@ class SettingScreen extends StatelessWidget {
                         child: profileC.userImage.value != ''
                             ? Image.network(
                                 profileC.userImage.value,
-                                height: 90,
                                 fit: BoxFit.cover,
                               )
                             : profileC.pickImage.value.path == ''
                                 ? Image.asset(
                                     'assets/images/profile.png',
-                                    height: 90,
                                     fit: BoxFit.cover,
                                   )
                                 : Image.file(
                                     File(profileC.pickImage.value.path),
-                                    height: 90,
                                   ),
                       ),
                     ),

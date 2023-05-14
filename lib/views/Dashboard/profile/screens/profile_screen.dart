@@ -33,6 +33,8 @@ class ProfileScreen extends StatelessWidget {
             () => Column(
               children: [
                 Container(
+                  height: 90,
+                  width: 90,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                   ),
@@ -41,12 +43,10 @@ class ProfileScreen extends StatelessWidget {
                     child: profileC.userImage.value == ''
                         ? Image.asset(
                             'assets/images/profile.png',
-                            height: 90,
                             fit: BoxFit.cover,
                           )
                         : Image.network(
                             profileC.userImage.value,
-                            height: 90,
                           ),
                   ),
                 ),

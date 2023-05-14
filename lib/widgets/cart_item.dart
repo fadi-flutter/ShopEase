@@ -116,7 +116,11 @@ class CartItem extends StatelessWidget {
                       );
                     }).toList();
                   },
-                  onSelected: (value) {},
+                  onSelected: (value) {
+                    value == optionsList[0]
+                        ? cartC.addToFavourite(product)
+                        : cartC.removeToCart(product);
+                  },
                 ),
                 Text(
                   '\$ ${product.price}',

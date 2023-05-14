@@ -4,6 +4,7 @@ import 'package:shopease/utilities/app_colors.dart';
 import 'package:shopease/utilities/app_textstyle.dart';
 import 'package:shopease/views/Auth/models/products_model.dart';
 import 'package:shopease/views/Dashboard/cart/controllers/cart_controller.dart';
+import 'package:shopease/views/Dashboard/product/screens/product_details.dart';
 import 'package:shopease/widgets/cart_item.dart';
 import 'package:shopease/widgets/long_button.dart';
 
@@ -42,7 +43,7 @@ class CartScreen extends StatelessWidget {
                   if (snapshot.hasError) {
                     return Center(
                       child: Text(
-                        'Please check your internet connection\nand try again!',
+                        'Please check your internet connection\nand try again! ${snapshot.error}',
                         style: AppTextStyle.regularBlack14,
                       ),
                     );
@@ -68,9 +69,15 @@ class CartScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       itemCount: snapshot.data!.length,
                       itemBuilder: ((context, index) {
-                        return CartItem(
-                          product: snapshot.data![index],
-                          cartC: cartC,
+                        return GestureDetector(
+                          onTap: () {
+                            Get.to(() =>
+                                ProductDetails(product: snapshot.data![index]));
+                          },
+                          child: CartItem(
+                            product: snapshot.data![index],
+                            cartC: cartC,
+                          ),
                         );
                       }),
                     ),
